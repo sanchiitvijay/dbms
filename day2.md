@@ -31,3 +31,9 @@
 ('987654321', 1, 20.0),
 ('456123789', 2, 30.0),
 ('321654987', 3, 25.0);
+
+
+### query questions
+- select fname, sname from employee where salary > (select max(salary) from employee where dno = 5);
+- select essn from workson where pno in (1,2,3);
+- select pno, sum(hours) as total_hours from workson group by pno;
