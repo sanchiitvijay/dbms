@@ -1,8 +1,8 @@
-- select * from employee order by salary;
-- select * from employee order by desc salary;
-- select count(dno) , dno from employee group by dno;
-- alter table employee modify column addr varchar(255);
-- alter table employee rename column addr to address; (not working)
-- alter table employee add haha varchar(10);
-- alter table employee drop column haha;
+- SELECT * FROM employee ORDER BY salary;
+- SELECT * FROM employee ORDER BY salary DESC;
+- SELECT COUNT(dno), dno FROM employee GROUP BY dno;
+- ALTER TABLE employee MODIFY COLUMN addr VARCHAR(255);
+- ALTER TABLE employee RENAME COLUMN addr TO address; -- (not working)
+- ALTER TABLE employee ADD haha VARCHAR(10);
+- ALTER TABLE employee DROP COLUMN haha;
 - ALTER TABLE employee MODIFY dno INT, ADD CONSTRAINT fk_dept_dno FOREIGN KEY (dno) REFERENCES dept (dno);
