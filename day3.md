@@ -5,3 +5,4 @@
 - alter table employee rename column addr to address; (not working)
 - alter table employee add haha varchar(10);
 - alter table employee drop column haha;
+- ALTER TABLE employee MODIFY dno INT, ADD CONSTRAINT fk_dept_dno FOREIGN KEY (dno) REFERENCES dept (dno);
