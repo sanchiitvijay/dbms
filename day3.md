@@ -3,3 +3,5 @@
 - select count(dno) , dno from employee group by dno;
 - alter table employee modify column addr varchar(255);
 - alter table employee rename column addr to address; (not working)
+- alter table employee add haha varchar(10);
+- alter table employee drop column haha;
