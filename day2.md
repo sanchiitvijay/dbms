@@ -34,6 +34,6 @@
 
 
 ### query questions
-- select fname, sname from employee where salary > (select max(salary) from employee where dno = 5);
+- select fname, lname from employee where salary > (select max(salary) from employee where dno = 5);
 - select essn from workson where pno in (1,2,3);
 - select pno, sum(hours) as total_hours from workson group by pno;
