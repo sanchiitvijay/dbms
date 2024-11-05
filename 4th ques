@@ -1,0 +1,73 @@
+### Creating tables
+CREATE TABLE SUPPLIER (
+    Sid INT PRIMARY KEY,
+    Sname VARCHAR(50),
+    Address VARCHAR(100)
+);
+
+CREATE TABLE PART (
+    PID INT PRIMARY KEY,
+    Pname VARCHAR(50),
+    Color VARCHAR(20)
+);
+
+CREATE TABLE SHIPMENT (
+    Sid INT,
+    PID INT,
+    Cost DECIMAL(10, 2),
+    PRIMARY KEY (Sid, PID),
+    FOREIGN KEY (Sid) REFERENCES SUPPLIER(Sid),
+    FOREIGN KEY (PID) REFERENCES PART(PID)
+);
+
+
+### Addng values
+
+INSERT INTO SUPPLIER (Sid, Sname, Address) VALUES
+(1, 'Supplier1', '123 Elm St'),
+(2, 'Supplier2', '456 Oak St'),
+(3, 'Supplier3', '789 Pine St'),
+(4, 'Supplier4', '101 Maple St'),
+(5, 'Supplier5', '202 Birch St');
+
+INSERT INTO PART (PID, Pname, Color) VALUES
+(1, 'Widget', 'Green'),
+(2, 'Gadget', 'Red'),
+(3, 'Doodad', 'Blue'),
+(4, 'Thingamajig', 'Green'),
+(5, 'Whatchamacallit', 'Yellow');
+
+INSERT INTO SHIPMENT (Sid, PID, Cost) VALUES
+(1, 1, 100.00),
+(1, 2, 150.00),
+(2, 3, 200.00),
+(3, 4, 250.00),
+(3, 5, 120.00),
+(4, 1, 90.00),
+(5, 2, 160.00);
+
+
+### queries
+i)
+SELECT DISTINCT S.Sid
+FROM SUPPLIER S
+JOIN SHIPMENT SH ON S.Sid = SH.Sid
+JOIN PART P ON SH.PID = P.PID
+WHERE P.Color = 'Green';
+
+ii)
+SELECT S.Sname, COUNT(DISTINCT SH.PID) AS TotalPartsSupplied
+FROM SUPPLIER S
+JOIN SHIPMENT SH ON S.Sid = SH.Sid
+GROUP BY S.Sname;
+
+iii)
+UPDATE PART P
+SET P.Color = 'Yellow'
+WHERE P.PID IN (
+    SELECT SH.PID
+    FROM SHIPMENT SH
+    WHERE SH.Sid = 3
+);
+
+
