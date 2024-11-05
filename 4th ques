@@ -50,9 +50,8 @@ INSERT INTO SHIPMENT (Sid, PID, Cost) VALUES
 ### queries
 i)
 SELECT DISTINCT S.Sid
-FROM SUPPLIER S
-JOIN SHIPMENT SH ON S.Sid = SH.Sid
-JOIN PART P ON SH.PID = P.PID
+FROM SHIPMENT S
+JOIN PART P ON S.PID = P.PID
 WHERE P.Color = 'Green';
 
 ii)
@@ -71,3 +70,34 @@ WHERE P.PID IN (
 );
 
 
+### output
+i)
++-----+
+| sid |
++-----+
+|   1 |
+|   4 |
+|   3 |
++-----+
+
+ii)
++-----------+-------------------+
+| sname     | TotalPartSupplied |
++-----------+-------------------+
+| Supplier1 |                 2 |
+| Supplier2 |                 1 |
+| Supplier3 |                 2 |
+| Supplier4 |                 1 |
+| Supplier5 |                 1 |
++-----------+-------------------+
+
+iii)
++-----+-----------------+--------+
+| PID | Pname           | Color  |
++-----+-----------------+--------+
+|   1 | Widget          | Green  |
+|   2 | Gadget          | Red    |
+|   3 | Doodad          | Blue   |
+|   4 | Thingamajig     | Yellow |
+|   5 | Whatchamacallit | Yellow |
++-----+-----------------+--------+
