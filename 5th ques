@@ -57,22 +57,22 @@ JOIN AIRCRAFT ON CERTIFIED.AID = AIRCRAFT.AID
 WHERE AIRCRAFT.name LIKE 'Boeing%';
 
 ii)
-SELECT Aircraft_name, Cruising_range
-FROM AIRCRAFT
+SELECT name, Cruising_range 
+FROM AIRCRAFT 
 ORDER BY Cruising_range ASC;
 
 
 iii)
 SELECT AEMPLOYEE.Ename
 FROM AEMPLOYEE
-JOIN CERTIFIED ON AEMPLOYEE.Emp_ID = CERTIFIED.Emp_ID
-JOIN AIRCRAFT ON CERTIFIED.Aircraft_ID = AIRCRAFT.Aircraft_ID
+JOIN CERTIFIED ON AEMPLOYEE.EID = CERTIFIED.EID
+JOIN AIRCRAFT ON CERTIFIED.AID = AIRCRAFT.AID
 WHERE AIRCRAFT.Cruising_range > 3000
-AND AEMPLOYEE.Emp_ID NOT IN (
-    SELECT CERTIFIED.Emp_ID
+AND AEMPLOYEE.EID NOT IN (
+    SELECT CERTIFIED.EID
     FROM CERTIFIED
-    JOIN AIRCRAFT ON CERTIFIED.Aircraft_ID = AIRCRAFT.Aircraft_ID
-    WHERE AIRCRAFT.Aircraft_name = 'Boeing'
+    JOIN AIRCRAFT ON CERTIFIED.AID = AIRCRAFT.AID
+    WHERE AIRCRAFT.name LIKE 'Boeing%'
 );
 
 
@@ -88,6 +88,29 @@ i)
 
 
 ii)
++--------------+----------------+
+| name         | Cruising_range |
++--------------+----------------+
+| Cess Citate  |           2000 |
+| Learjet 75   |           2040 |
+| Embra Phenom |           2300 |
+| Airbus A320  |           3300 |
+| Falcon 7X    |           5950 |
+| Gulf G650    |           7000 |
+| Bombard 7500 |           7700 |
+| Boeing 747   |           8000 |
+| Airbus A380  |           8000 |
+| Boeing 777   |           8700 |
++--------------+----------------+
 
 
 iii)
++--------------+
+| Ename        |
++--------------+
+| Alice Smith  |
+| Bob Johnson  |
+| Dana White   |
+| George Black |
+| Ian Thompson |
++--------------+
