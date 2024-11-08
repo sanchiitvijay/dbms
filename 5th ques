@@ -1,3 +1,6 @@
+#### Write create table and insert values into table cmds from 3rd ques
+
+
 ### Table data
 select * from aemployee;
 +-----+---------------+--------+
