@@ -33,14 +33,10 @@ VALUES
 ('Chris', 'Martinez', '222334455', '654 Birch St, CityY, ST', 'M', 65000.00, '987654321', 2);
 
 
-INSERT INTO EMPLOYEE (Fname, Lname, SSN, Addrs, Sex, Salary, SuperSSN, Dno)
-VALUES
-('John', 'Doe', '123456789', '123 Elm St, SomeCity, ST', 'M', 75000.00, NULL, 1),
-('Jane', 'Smith', '987654321', '456 Oak St, OtherCity, ST', 'F', 80000.00, '123456789', 1),
-('Jim', 'Brown', '555555555', '789 Pine St, AnotherCity, ST', 'M', 95000.00, NULL, 3),
-('Sara', 'Davis', '111223344', '321 Maple St, CityX, ST', 'F', 90000.00, '555555555', 3),
-('Chris', 'Martinez', '222334455', '654 Birch St, CityY, ST', 'M', 65000.00, '987654321', 2);
-
+INSERT INTO dept (dname, dno, mgrssn, mgrstartdate) 
+VALUES 
+('Human Resources', 1, 123456789, 20200101), 
+('Engineering', 2, 987654321, 20200201);
 
 INSERT INTO DEPENDENT (Dname, ESSN)
 VALUES
