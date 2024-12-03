@@ -1,0 +1,49 @@
+--queries
+--i)
+SELECT c.cname, COUNT(o.orders) AS number_of_orders
+FROM CUSTOMER c
+JOIN ORDERS o ON c.cust = o.cust
+WHERE c.city = 'New York'
+GROUP BY c.cname;
+
+--ii)
+SELECT c.cname
+FROM CUSTOMER c
+JOIN ORDERS o ON c.cust = o.cust
+JOIN ORDER_ITEM oi ON o.orders = oi.orders
+GROUP BY c.cname
+HAVING COUNT(oi.item) >= 3;
+
+
+--iii)
+SELECT c.cname
+FROM CUSTOMER c
+JOIN ORDERS o ON c.cust = o.cust
+LEFT JOIN ORDER_ITEM oi ON o.orders = oi.orders AND oi.item = 10
+WHERE oi.item IS NULL;
+
+--output
+--i)
++----------+------------------+
+| cname    | number_of_orders |
++----------+------------------+
+| John Doe |                2 |
++----------+------------------+
+
+--ii)
++----------+
+| cname    |
++----------+
+| John Doe |
++----------+
+
+--iii)
++---------------+
+| cname         |
++---------------+
+| John Doe      |
+| John Doe      |
+| Jane Smith    |
+| Alice Johnson |
+| Bob Brown     |
++---------------+

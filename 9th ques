@@ -1,0 +1,128 @@
+-- Creating the CUSTOMER table
+CREATE TABLE CUSTOMER (
+    cust INT PRIMARY KEY,
+    cname VARCHAR(50),
+    city VARCHAR(50)
+);
+
+-- Creating the ORDER table
+CREATE TABLE ORDERS (
+    orders INT PRIMARY KEY,
+    odate DATE,
+    cust INT,
+    ord_Amt INT,
+    FOREIGN KEY (cust) REFERENCES CUSTOMER(cust)
+);
+
+-- Creating the ORDER-ITEM table
+CREATE TABLE ORDER_ITEM (
+    orders INT,
+    item INT,
+    qty INT,
+    PRIMARY KEY (orders, item),
+    FOREIGN KEY (orders) REFERENCES ORDERS(orders)
+);
+
+-- Creating the ITEM table
+CREATE TABLE ITEM (
+    item INT PRIMARY KEY,
+    unit_price DECIMAL(10, 2)
+);
+
+-- Creating the SHIPMENT table
+CREATE TABLE SHIPMENT (
+    orders INT,
+    ship_date DATE,
+    PRIMARY KEY (orders),
+    FOREIGN KEY (orders) REFERENCES ORDERS(orders)
+);
+
+
+
+
+
+-- Inserting data into CUSTOMER table
+INSERT INTO CUSTOMER (cust, cname, city) VALUES
+(1, 'John Doe', 'New York'),
+(2, 'Jane Smith', 'Los Angeles'),
+(3, 'Alice Johnson', 'Chicago'),
+(4, 'Bob Brown', 'Houston'),
+(5, 'Charlie Green', 'Miami');
+
+-- Inserting data into ORDERS table
+INSERT INTO ORDERS (orders, odate, cust, ord_Amt) VALUES
+(101, '2024-12-01', 1, 500),
+(102, '2024-12-02', 1, 300),
+(103, '2024-12-03', 2, 150),
+(104, '2024-12-02', 3, 200),
+(105, '2024-12-01', 4, 400);
+
+-- Inserting data into ORDERS_ITEM table
+INSERT INTO ORDER_ITEM (orders, item, qty) VALUES
+(101, 1, 2),
+(101, 2, 1),
+(102, 3, 4),
+(103, 4, 3),
+(104, 5, 5);
+
+-- Inserting data into ITEM table
+INSERT INTO ITEM (item, unit_price) VALUES
+(1, 50),
+(2, 100),
+(3, 25),
+(4, 75),
+(5, 80);
+
+-- Inserting data into SHIPMENT table
+INSERT INTO SHIPMENT (orders, ship_date) VALUES
+(101, '2024-12-02'),
+(102, '2024-12-03'),
+(103, '2024-12-04'),
+(104, '2024-12-03'),
+(105, '2024-12-05');
+
+
+
+--queires
+--i)
+SELECT c.cname
+FROM CUSTOMER c
+JOIN ORDERS o ON c.cust = o.cust
+GROUP BY c.cname
+HAVING COUNT(o.orders) > 1;
+
+--ii)
+SELECT o.odate, SUM(o.ord_Amt) AS total_order_amt
+FROM ORDERS o
+GROUP BY o.odate
+ORDER BY o.odate;
+
+--iii)
+SELECT c.cust, c.cname, c.city, o.ord_Amt
+FROM CUSTOMER c
+JOIN ORDERS o ON c.cust = o.cust
+WHERE o.ord_Amt = (SELECT MAX(ord_Amt) FROM ORDERS);
+
+--output
+--i)
++----------+
+| cname    |
++----------+
+| John Doe |
++----------+
+
+--ii)
++------------+-----------------+
+| odate      | total_order_amt |
++------------+-----------------+
+| 2024-12-01 |             900 |
+| 2024-12-02 |             500 |
+| 2024-12-03 |             150 |
++------------+-----------------+
+
+--iii)
++------+----------+----------+---------+
+| cust | cname    | city     | ord_Amt |
++------+----------+----------+---------+
+|    1 | John Doe | New York |     500 |
++------+----------+----------+---------+
