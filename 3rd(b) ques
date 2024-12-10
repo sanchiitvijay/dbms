@@ -1,0 +1,139 @@
+---creating collection
+db.createCollection(rest)
+
+---inserting data
+db.rest.insertMany([
+    {
+        "name": "Pizza Palace",
+        "address": {
+            "building": "8A",
+            "street": "MG Road",
+            "area": "Central Bangalore",
+            "pincode": "560001"
+        },
+        "id": "001",
+        "cuisine": "Italian",
+        "nearby": ["Cubbon Park", "UB City Mall"],
+        "online_delivery": "yes",
+        "famous_for": "Margherita Pizza"
+    },
+    {
+        "name": "Saffron Flavours",
+        "address": {
+            "building": "12B",
+            "street": "Church Street",
+            "area": "MG Road",
+            "pincode": "560002"
+        },
+        "id": "002",
+        "cuisine": "North Indian",
+        "nearby": ["Bangalore Palace", "Cubbon Park"],
+        "online_delivery": "yes",
+        "famous_for": "North Indian Thali"
+    },
+    {
+        "name": "La Pizzeria",
+        "address": {
+            "building": "45",
+            "street": "Indiranagar",
+            "area": "East Bangalore",
+            "pincode": "560038"
+        },
+        "id": "003",
+        "cuisine": "Italian",
+        "nearby": ["Indiranagar Metro", "Bangalore Central Mall"],
+        "online_delivery": "no",
+        "famous_for": "Wood-Fired Pizza"
+    },
+    {
+        "name": "Biryani Corner",
+        "address": {
+            "building": "25C",
+            "street": "Koramangala 6th Block",
+            "area": "South Bangalore",
+            "pincode": "560034"
+        },
+        "id": "004",
+        "cuisine": "North Indian",
+        "nearby": ["Koramangala Park", "Forum Mall"],
+        "online_delivery": "yes",
+        "famous_for": "North Indian Thali"
+    },
+    {
+        "name": "Spaghetti Street",
+        "address": {
+            "building": "3D",
+            "street": "Bannerghatta Road",
+            "area": "South Bangalore",
+            "pincode": "560029"
+        },
+        "id": "005",
+        "cuisine": "Italian",
+        "nearby": ["Arekere", "Bangalore University"],
+        "online_delivery": "no",
+        "famous_for": "Spaghetti Carbonara"
+    }
+])
+
+
+---queries
+
+---i)
+db.rest.find(
+  { "famous_for": "North Indian Thali" },
+  { "name": 1, "address": 1, "nearby": 1, "_id": 0 }
+)
+
+---ii)
+db.rest.find( 
+    { "address.area": /Bangalore/, "online_delivery":"yes" }, 
+    { "name": 1, "address": 1,  "_id": 0 }
+)
+
+---output
+---i)
+[
+  {
+    name: 'Saffron Flavours',
+    address: {
+      building: '12B',
+      street: 'Church Street',
+      area: 'MG Road',
+      pincode: '560002'
+    },
+    nearby: [ 'Bangalore Palace', 'Cubbon Park' ]
+  },
+  {
+    name: 'Biryani Corner',
+    address: {
+      building: '25C',
+      street: 'Koramangala 6th Block',
+      area: 'South Bangalore',
+      pincode: '560034'
+    },
+    nearby: [ 'Koramangala Park', 'Forum Mall' ]
+  }
+]
+
+
+---ii)
+[
+    {
+      name: 'Pizza Palace',
+      address: {
+        building: '8A',
+        street: 'MG Road',
+        area: 'Central Bangalore',
+        pincode: '560001'
+      }
+    },
+    {
+      name: 'Biryani Corner',
+      address: {
+        building: '25C',
+        street: 'Koramangala 6th Block',
+        area: 'South Bangalore',
+        pincode: '560034'
+      }
+    }
+]
