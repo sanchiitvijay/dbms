@@ -1,0 +1,70 @@
+---create collection
+db.createCollection("tour")
+
+---inserting data
+ db.tour.insertMany([
+...   {
+...     "place": "Coorg",
+...     "address": "Karnataka",
+...     "id": "K001",
+...     "tourist_attractions": ["Coffee Plantations", "Abbey Falls", "Nisargadhama", "Raja's Seat"],
+...     "best_time_of_year_to_visit": "October to March",
+...     "modes_of_transport": {
+...       "nearest_airport": "Mangalore International Airport",
+...       "nearest_railway_station": "Mysuru Railway Station",
+...       "other_modes": ["Bus", "Taxi"]
+...     },
+...     "accommodation": ["Coorg Wilderness Resort", "The Tamara Coorg"],
+...     "food": ["Pandi Curry", "Coorgi Style Chicken", "Kadumbuttu"],
+...     "what_not_to_miss": ["Raja's Seat Viewpoint", "Coffee Plantation Tour"]
+...   },
+...   {
+...     "place": "Mysuru",
+...     "address": "Karnataka",
+...     "id": "K002",
+...     "tourist_attractions": ["Mysore Palace", "Brindavan Gardens", "Chamundi Hill", "St. Philomena's Church"],
+...     "best_time_of_year_to_visit": "October to February",
+...     "modes_of_transport": {
+...       "nearest_airport": "Mysuru Airport",
+...       "nearest_railway_station": "Mysuru Railway Station",
+...       "other_modes": ["Bus", "Taxi"]
+...     },
+...     "accommodation": ["Radisson Blu", "Country Inn & Suites"],
+...     "food": ["Mysore Pak", "Ragi Mudde", "Benne Dosa"],
+...     "what_not_to_miss": ["Mysore Palace", "Brindavan Garden Light & Sound Show"]
+...   },
+...   {
+...     "place": "Bengaluru",
+...     "address": "Karnataka",
+...     "id": "K003",
+...     "tourist_attractions": ["Bangalore Palace", "Cubbon Park", "Lalbagh Botanical Garden", "Vidhana Soudha"],
+...     "best_time_of_year_to_visit": "October to February",
+...     "modes_of_transport": {
+...       "nearest_airport": "Kempegowda International Airport",
+...       "nearest_railway_station": "Bangalore Railway Station",
+...       "other_modes": ["Metro", "Bus", "Taxi"]
+...     },
+...     "accommodation": ["Taj West End", "ITC Gardenia"],
+...     "food": ["Bisi Bele Bath", "Masala Dosa", "Rava Idli"],
+...     "what_not_to_miss": ["Lalbagh Flower Show", "Bangalore Palace"]
+...   }
+...   ])
+
+---i)
+db.tour.find({ "address": "Karnataka" }, { "place": 1, "_id": 0 })
+
+
+---ii)
+db.tour.find(
+  { "address": "Kerala" },
+  { "place": 1, "tourist_attractions": 1, "_id": 0 }
+)
+
+
+---output
+---i)
+[ { place: 'Coorg' }, { place: 'Mysuru' }, { place: 'Bengaluru' } ]
+
+
+---ii)
+---no output
