@@ -1,4 +1,4 @@
-othersa are same as question 4(b)
+others are same as question 4(b)
 ---ii)
 db.tour.find( {}, { "place": 1, "address.state": 1, "_id": 0 } ).sort( { "address.state": 1 } )
 

@@ -1,0 +1,39 @@
+---same db as 7th question
+
+
+---i)
+db.movies.find(
+  { "Actor_name": { $in: ["John", "Elly"] }, "year_of_production": 2012 },
+  { "_id": 0, "film_title": 1, "Actor_name": 1, "year_of_production": 1 }
+)
+
+---ii)
+db.movies.find(
+  { "Actor_name": "Ram" },
+  { "_id": 0, "film_title": 1, "type": 1 }
+).sort({ "film_title": 1 });
+
+
+
+---output
+
+---i)
+[
+  {
+    Actor_name: 'Elly',
+    film_title: 'Comedy Movie',
+    year_of_production: 2012
+  },
+  {
+    Actor_name: 'John',
+    film_title: 'Action Adventure',
+    year_of_production: 2012
+  }
+]
+
+---ii)
+[
+  { "film_title": "Action Movie", "type": "Action" },
+  { "film_title": "Epic Journey", "type": "Adventure" }
+]
+

@@ -1,0 +1,22 @@
+---same as previous database
+
+---i)
+db.tour.find({ "address.state": "Karnataka" })
+
+---ii)
+db.tour.find().sort({ "address.state": 1 })
+
+---output
+
+---i)
+no output
+
+---ii)
+{
+  "place": "Coorg",
+  "address": {
+    "state": "Karnataka",
+    "city": "Coorg"
+  },
+  "id": "K001",
+}

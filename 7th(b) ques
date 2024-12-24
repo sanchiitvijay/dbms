@@ -1,0 +1,65 @@
+db.createCollection('movies')
+
+db.movies.insertMany([
+  {
+    "Actor_name": "John",
+    "Actor_id": "A001",
+    "Actor_birthdate": "1985-07-20",
+    "Director_name": "Ram",
+    "Director_id": "D001",
+    "Director_birthdate": "1975-03-10",
+    "film_title": "Thriller Movie",
+    "year_of_production": 2018,
+    "type": "Thriller"
+  },
+  {
+    "Actor_name": "Elly",
+    "Actor_id": "A002",
+    "Actor_birthdate": "1990-05-15",
+    "Director_name": "Shyam",
+    "Director_id": "D002",
+    "Director_birthdate": "1980-11-25",
+    "film_title": "Comedy Nights",
+    "year_of_production": 2018,
+    "type": "Comedy"
+  },
+  {
+    "Actor_name": "John",
+    "Actor_id": "A001",
+    "Actor_birthdate": "1985-07-20",
+    "Director_name": "Ram",
+    "Director_id": "D001",
+    "Director_birthdate": "1975-03-10",
+    "film_title": "Action Movie",
+    "year_of_production": 2018,
+    "type": "Action"
+  }
+]);
+
+
+
+---i)
+db.movies.find(
+  { "Actor_name": "John", "year_of_production": 2018 },
+  { "_id": 0, "film_title": 1, "year_of_production": 1 }
+)
+
+---ii)
+db.movies.find(
+  { "Director_name": "Ram" },
+  { "_id": 0, "Actor_name": 1, "type": 1 }
+)
+
+
+---output
+---i)
+[
+  { film_title: 'Thriller Movie', year_of_production: 2018 },
+  { film_title: 'Action Movie', year_of_production: 2018 },
+]
+
+---ii)
+[
+  { Actor_name: 'John', type: 'Thriller' },
+  { Actor_name: 'John', type: 'Action' },
+]
