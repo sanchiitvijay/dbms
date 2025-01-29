@@ -1,0 +1,116 @@
+CREATE TABLE EMPLOYEE (
+    Fname VARCHAR(50),
+    Lname VARCHAR(50),
+    SSN INT PRIMARY KEY,
+    Addrs VARCHAR(255),
+    Sex CHAR(1),
+    Salary INT,
+    SuperSSN INT,
+    Dno INT,
+    FOREIGN KEY (SuperSSN) REFERENCES EMPLOYEE(SSN)
+);
+
+CREATE TABLE DEPARTMENT (
+    Dname VARCHAR(100),
+    Dnumber INT PRIMARY KEY,
+    MgrSSN INT,
+    MgrStartDate DATE,
+    FOREIGN KEY (MgrSSN) REFERENCES EMPLOYEE(SSN)
+);
+
+CREATE TABLE PROJECT (
+    Pno INT PRIMARY KEY,
+    Pname VARCHAR(100),
+    Dnum INT,
+    FOREIGN KEY (Dnum) REFERENCES DEPARTMENT(Dnumber)
+);
+
+CREATE TABLE WORKS_ON (
+    ESSN INT,
+    Pno INT,
+    Hours INT,
+    PRIMARY KEY (ESSN, Pno),
+    FOREIGN KEY (ESSN) REFERENCES EMPLOYEE(SSN),
+    FOREIGN KEY (Pno) REFERENCES PROJECT(Pno)
+);
+
+INSERT INTO EMPLOYEE (Fname, Lname, SSN, Addrs, Sex, Salary, SuperSSN, Dno) VALUES
+('John', 'Doe', 201, '111 Main St, NY', 'M', 90000, NULL, 1),
+('Jane', 'Smith', 202, '222 Second St, LA', 'F', 95000, 201, 2),
+('Mark', 'Lee', 203, '333 Third St, TX', 'M', 85000, 201, 3),
+('Sophia', 'Brown', 204, '444 Fourth St, FL', 'F', 92000, 202, 1),
+('Mike', 'Johnson', 205, '555 Fifth St, WA', 'M', 91000, 202, 2),
+('Emma', 'Davis', 206, '666 Sixth St, CA', 'F', 70000, 203, 5),
+('Liam', 'Wilson', 207, '777 Seventh St, IL', 'M', 75000, 203, 5),
+('Olivia', 'Martinez', 208, '888 Eighth St, TX', 'F', 72000, 203, 5);
+
+INSERT INTO DEPARTMENT (Dname, Dnumber, MgrSSN, MgrStartDate) VALUES
+('HR', 1, 201, '2020-01-01'),
+('Finance', 2, 202, '2019-03-15'),
+('IT', 3, 203, '2018-07-10'),
+('Marketing', 4, 204, '2021-06-20'),
+('Sales', 5, 205, '2017-09-30');
+
+INSERT INTO PROJECT (Pno, Pname, Dnum) VALUES
+(1, 'Website Revamp', 3),  
+(2, 'Data Migration', 2),   
+(3, 'Product Launch', 5),   
+(4, 'Market Research', 4),  
+(5, 'HR Training', 1);      
+
+INSERT INTO WORKS_ON (ESSN, Pno, Hours) VALUES
+(201, 1, 20),  
+(202, 2, 25),  
+(203, 3, 30),  
+(204, 1, 15),  
+(205, 2, 10),  
+(203, 2, 12),  
+(202, 3, 18); 
+
+
+-- query 1
+select Fname,Lname from
+Employee where salary > ALL(
+	select salary 
+    from Employee
+    where Dno=5
+);
+
+-- query 2
+select distinct ESSN from WORKS_ON where Pno in (1,2,3);
+
+-- query 3
+select Pno,SUM(Hours) as TOTAL_HOURS
+from works_on
+group by Pno;
+
+
+-- output
++---------+----------+
+| Fname   | Lname    |
++---------+----------+
+| John    | Doe      |
+| Jane    | Smith    |
+| Mark    | Lee      |
+| Sophia  | Brown    |
+| Mike    | Johnson  |
++---------+----------+
+
++------+
+| ESSN |
++------+
+| 201  |
+| 202  |
+| 203  |
+| 204  |
+| 205  |
++------+
+
+
++-----+-------------+
+| Pno | TOTAL_HOURS |
++-----+-------------+
+| 1   | 35          |
+| 2   | 47          |
+| 3   | 48          |
++-----+-------------+

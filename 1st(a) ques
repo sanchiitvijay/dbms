@@ -1,0 +1,87 @@
+CREATE TABLE SAILORS(
+	sid INT PRIMARY KEY,
+    sname VARCHAR(20),
+    rating int,
+    age int
+);
+
+create table BOATS(
+	bid int primary key,
+    bname varchar(30),
+    color varchar(20)
+);
+
+create table reserves(
+	sid int,
+    bid int,
+    day date,
+    foreign key(sid) references SAILORS(sid),
+    foreign key(bid) references BOATS(bid)
+);
+
+INSERT INTO SAILORS (Sid, Sname, Rating, Age) VALUES
+(1, 'John', 5, 25),
+(2, 'Jane', 4, 30),
+(3, 'Mark', 3, 22),
+(4, 'Sophia', 5, 28),
+(5, 'Mike', 2, 35);
+
+INSERT INTO BOATS (Bid, Bname, Color) VALUES
+(1, 'Sea Breeze', 'Red'),
+(2, 'Ocean Wave', 'Green'),
+(3, 'Sunshine', 'Blue'),
+(4, 'Wind Rider', 'Red'),
+(5, 'Waterfall', 'Yellow');
+
+INSERT INTO RESERVES (Sid, Bid, day) VALUES
+(1, 1, '2025-01-01'),
+(2, 2, '2025-01-02'),
+(3, 3, '2025-01-03'),
+(5, 5, '2025-01-05'),
+(2, 4, '2025-01-06'),
+(3, 5, '2025-01-07');
+
+-- query1--
+
+select distinct S.sname 
+from Sailors S
+join reserves R on S.sid=R.sid;
+
+-- query 2 --
+select distinct R.sid
+from reserves R
+join boats B on
+R.bid=B.bid
+where B.color in ('Red','Green'); 
+
+-- query 3 --
+select sid 
+from sailors where 
+sid not in (select sid from reserves);
+
+
+
+-- output
+
++--------+
+| sname  |
++--------+
+| John   |
+| Jane   |
+| Mark   |
+| Mike   |
++--------+
+
++-----+
+| Sid |
++-----+
+| 1   |
+| 2   |
+| 2   |
++-----+
+
++-----+
+| Sid |
++-----+
+| 4   |
++-----+
