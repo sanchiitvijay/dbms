@@ -61,7 +61,7 @@ sid not in (select sid from reserves);
 
 
 
-output
+-- output
 
 +--------+
 | sname  |
